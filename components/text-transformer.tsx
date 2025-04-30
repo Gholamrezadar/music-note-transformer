@@ -25,15 +25,15 @@ export function TextTransformer() {
   return (
     <div className="space-y-6">
       <div className="relative">
-        <motion.div whileHover={{ scale: 1.01 }} whileTap={{ scale: 0.99 }} className="relative">
+        <div className="relative">
           <Input
             type="text"
             placeholder="Enter notes to transform e.g. C4 D#4 A5"
             value={inputText}
             onChange={(e) => setInputText(e.target.value)}
-            className="w-full h-14 px-6 text-lg rounded-xl bg-background/50 backdrop-blur-sm border-2 transition-all duration-300 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-0"
+            className="w-full h-14 px-6 text-lg rounded-full bg-background/50 backdrop-blur-sm border"
           />
-        </motion.div>
+        </div>
       </div>
 
       <AnimatePresence>
@@ -44,14 +44,14 @@ export function TextTransformer() {
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.3 }}
           >
-            <Card className="overflow-hidden bg-background/60 backdrop-blur-lg border">
-              <CardContent className="p-6">
+            <Card className="overflow-hidden bg-background/60 backdrop-blur-sm border border-input rounded-[25px]">
+              <CardContent className="p-6 ">
                 <h2 className="text-xl font-semibold mb-2">Transformed Notes</h2>
                 <p className="text-lg leading-relaxed">{transformedText}</p>
 
                 {unmappedWords.length > 0 && (
                   <div className="mt-4 pt-4 border-t">
-                    <h3 className="text-sm font-medium text-muted-foreground mb-2">Unmapped Notes:</h3>
+                    
                     <div className="flex flex-wrap gap-2">
                       {unmappedWords.map((word, index) => (
                         <span

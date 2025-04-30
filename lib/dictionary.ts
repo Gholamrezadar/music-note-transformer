@@ -1,146 +1,64 @@
 // Sample dictionary mapping
 // This can be extended or replaced with a more comprehensive dictionary
-const dictionary: Record<string, string> = {
-  hello: "greetings",
-  world: "universe",
-  good: "excellent",
-  bad: "poor",
-  happy: "joyful",
-  sad: "melancholy",
-  big: "enormous",
-  small: "tiny",
-  fast: "rapid",
-  slow: "gradual",
-  hot: "scorching",
-  cold: "freezing",
-  new: "novel",
-  old: "ancient",
-  beautiful: "stunning",
-  ugly: "unattractive",
-  smart: "intelligent",
-  dumb: "unintelligent",
-  rich: "wealthy",
-  poor: "impoverished",
-  friend: "companion",
-  enemy: "adversary",
-  love: "adoration",
-  hate: "detest",
-  work: "labor",
-  play: "recreation",
-  eat: "consume",
-  drink: "imbibe",
-  sleep: "slumber",
-  wake: "arise",
-  talk: "converse",
-  listen: "hear",
-  walk: "stroll",
-  run: "sprint",
-  jump: "leap",
-  sit: "rest",
-  stand: "rise",
-  laugh: "chuckle",
-  cry: "weep",
-  smile: "grin",
-  frown: "grimace",
-  think: "ponder",
-  know: "understand",
-  learn: "study",
-  teach: "instruct",
-  help: "assist",
-  hurt: "harm",
-  start: "begin",
-  stop: "cease",
-  create: "generate",
-  destroy: "demolish",
-  build: "construct",
-  break: "shatter",
-  open: "unlock",
-  close: "shut",
-  find: "discover",
-  lose: "misplace",
-  give: "provide",
-  take: "seize",
-  buy: "purchase",
-  sell: "vend",
-  pay: "compensate",
-  receive: "accept",
-  send: "transmit",
-  get: "obtain",
-  make: "produce",
-  use: "utilize",
-  need: "require",
-  want: "desire",
-  like: "enjoy",
-  dislike: "disapprove",
-  try: "attempt",
-  succeed: "accomplish",
-  fail: "falter",
-  win: "triumph",
-  lose: "forfeit",
-  begin: "commence",
-  end: "conclude",
-  come: "arrive",
-  go: "depart",
-  stay: "remain",
-  leave: "exit",
-  return: "revert",
-  move: "shift",
-  change: "alter",
-  grow: "develop",
-  shrink: "contract",
-  improve: "enhance",
-  worsen: "deteriorate",
-  increase: "augment",
-  decrease: "diminish",
-  add: "append",
-  subtract: "deduct",
-  multiply: "proliferate",
-  divide: "separate",
-  count: "enumerate",
-  measure: "gauge",
-  weigh: "assess",
-  see: "observe",
-  watch: "monitor",
-  look: "gaze",
-  hear: "perceive",
-  smell: "detect",
-  taste: "savor",
-  touch: "contact",
-  feel: "sense",
+export const dictionary: Record<string, string> = {
+  "C3": "q",
+  "C#3": "2",
+  "D3": "w",
+  "D#3": "3",
+  "E3": "e",
+  "F3": "r",
+  "F#3": "5",
+  "G3": "t",
+  "G#3": "6",
+  "A3": "y",
+  "A#3": "7",
+  "B4": "u",
+  "C4": "i",
+  "C#4": "9",
+  "D4": "o",
+  "D#4": "0",
+  "E4": "p",
+  "F4": "z",
+  "F#4": "s",
+  "G4": "x",
+  "G#4": "d",
+  "A4": "c",
+  "A#4": "f",
+  "B4": "v",
+  "C5": "b",
+  "C#5": "h",
+  "D5": "n",
+  "D#5": "j",
+  "E5": "m",
+  "F5": ",",
+  "F#5": "l",
+  "G#5": ";",
+  "A5": "/",
+  "A#5": "'",
 }
 
 export function transformText(text: string): { result: string; unmapped: string[] } {
-  // Split the input text into words
-  const words = text.split(/\b/)
+
+  // Match notes and non-whitespace symbols (commas, periods, etc.)
+  let upperText = text.toUpperCase();
+  const tokens = upperText.match(/[\w#]+|[^\s\w#]*/g);
   const unmappedWords: string[] = []
 
-  // Transform each word using the dictionary
-  const transformedWords = words.map((word) => {
-    // Check if the word is in the dictionary (case-insensitive)
-    const lowerWord = word.toLowerCase()
-
-    // Skip transformation for whitespace and punctuation
-    if (/^\s*$/.test(word) || /^[^\w\s]$/.test(word)) {
-      return word
+  let output = tokens.map(token => {
+    // Replace note with number if found, otherwise keep the punctuation
+    if(dictionary[token]) {
+      return dictionary[token]
     }
-
-    if (dictionary[lowerWord]) {
-      // Preserve original capitalization
-      if (word[0] === word[0].toUpperCase()) {
-        return dictionary[lowerWord].charAt(0).toUpperCase() + dictionary[lowerWord].slice(1)
-      }
-      return dictionary[lowerWord]
-    } else {
-      // Add to unmapped words if it's an actual word (not whitespace or punctuation)
-      if (/^[a-zA-Z]+$/.test(word)) {
-        unmappedWords.push(word)
-      }
-      return word
+    else {
+      if(token != "" && token != null)
+        unmappedWords.push(token);
+      return null;
     }
-  })
+  }).join(' ');
+  console.log("output: ", output)
 
   return {
-    result: transformedWords.join(""),
+    result: output,
     unmapped: [...new Set(unmappedWords)], // Remove duplicates
   }
 }
