@@ -31,7 +31,7 @@ export function TextTransformer() {
             placeholder="Enter notes to transform e.g. C4 D#4 A5"
             value={inputText}
             onChange={(e) => setInputText(e.target.value)}
-            className="w-full h-14 px-6 text-lg rounded-full bg-background/50 backdrop-blur-sm border"
+            className="w-full h-14 px-6 text-lg rounded-full bg-background/40 backdrop-blur-md border"
           />
         </div>
       </div>

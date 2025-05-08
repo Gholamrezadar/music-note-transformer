@@ -6,7 +6,7 @@ import Link from "next/link"
 
 export default function Home() {
   return (
-    <main className="min-h-screen flex flex-col items-center justify-center p-4 sm:p-6 md:p-8 lg:p-24">
+    <main className="relative min-h-screen w-screen h-screen flex flex-col items-center justify-center p-4 sm:p-6 md:p-8 lg:p-24">
       <div className="absolute top-4 right-4">
         <ThemeToggle />
       </div>
@@ -34,6 +34,10 @@ export default function Home() {
         </div>
 
         <TextTransformer />
+
+        {/* Gradient Balls */}
+        <div className="fixed -z-10 top-[-40%] right-[-10%] w-[700px] h-[700px] bg-gradient-to-tr from-pink-600 via-purple-700 to-indigo-800 opacity-80 rounded-full blur-[400px]"></div>
+        <div className="fixed -z-10 top-[-40%] left-[-10%] w-[700px] h-[700px] bg-gradient-to-tr from-blue-600 via-blue-700 to-blue-800 opacity-60 rounded-full blur-[400px]"></div>
       </div>
     </main>
   )
